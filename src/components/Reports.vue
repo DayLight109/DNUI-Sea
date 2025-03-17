@@ -64,7 +64,7 @@
   
         // 创建一个 Blob 对象表示报告内容，并生成下载链接
         const blob = new Blob([generatedReport], { type: "text/plain" });
-        this.reportLink = URL.createObjectURL(blob);
+        this.reportLink = URL.createObjectURL(blob);    
   
         // 设置报告生成状态为已生成
         this.reportGenerated = true;
