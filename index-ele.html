@@ -1,20 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   <head>
-    <meta charset="UTF-8" />
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <meta
-      http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <title>Hello from Electron renderer!</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="./public/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北极海冰密度信息管理与分析系统</title>
+    <!-- 加载dist目录中的CSS -->
+    <link rel="stylesheet" href="./dist/assets/index-CjrK0wqZ.css">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      }
+      #app {
+        width: 100%;
+        height: 100vh;
+      }
+      .loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+      }
+      .loading h1 {
+        margin-bottom: 20px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello from Electron renderer!</h1>
-    <p>👋</p>
+    <div id="app">
+      <div class="loading">
+        <h1>北极海冰监测与分析系统</h1>
+        <p>正在加载应用程序...</p>
+      </div>
+    </div>
+    
+    <!-- 加载dist目录中的JS -->
+    <script>
+      // 检查是否在Electron环境中
+      const isElectron = window.navigator.userAgent.toLowerCase().indexOf('electron') > -1;
+      
+      // 创建脚本元素
+      const script = document.createElement('script');
+      script.type = 'module';
+      
+      // 尝试不同的路径
+      const paths = [
+        './dist/assets/index-BYxmuNiT.js',
+        '../dist/assets/index-BYxmuNiT.js',
+        '../../dist/assets/index-BYxmuNiT.js',
+        './resources/dist/assets/index-BYxmuNiT.js'
+      ];
+      
+      // 尝试加载第一个路径
+      script.src = paths[0];
+      script.onerror = () => {
+        console.error(`Failed to load script from ${paths[0]}`);
+        // 尝试下一个路径
+        if (paths.length > 1) {
+          script.src = paths[1];
+          console.log(`Trying to load from ${paths[1]}`);
+        }
+      };
+      
+      // 添加到文档
+      document.body.appendChild(script);
+      
+      // 如果5秒后仍未加载，显示错误信息
+      setTimeout(() => {
+        const app = document.getElementById('app');
+        if (app.children.length === 1 && app.children[0].className === 'loading') {
+          app.innerHTML = '<div class="loading"><h1>加载失败</h1><p>无法加载应用程序资源，请联系管理员</p></div>';
+        }
+      }, 5000);
+    </script>
   </body>
 </html>
