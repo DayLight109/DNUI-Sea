@@ -23,10 +23,10 @@ npm run build
 npm run preview
 ```
 
-## 打包应用
+## 打包应用 
 
-本项目使用Electron Forge进行打包，支持Windows、macOS和Linux平台。
-
+##本项目使用Electron Forge进行打包，支持Windows、macOS和Linux平台。
+本项目使用Electron Packager进行打包
 ```bash
 # 打包应用
 npm run package
